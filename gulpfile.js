@@ -10,6 +10,9 @@ const sassLint = require('gulp-sass-lint');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
 const sourcemaps = require('gulp-sourcemaps');
+const header = require('gulp-header');
+const rename = require('gulp-rename');
+const notifier = require('node-notifier');
 const del = require('del');
 
 
@@ -20,13 +23,14 @@ const path = {
     sass: './src/sass'
   },
   dest: {
-    css: './'
+    dest: './dist',
+    css: './dist/css'
   }
 };
 
 
 // Define a comment that we can use on our built CSS.
-const minifiedHeader = `/* ${pkg.name} ${pkg.version} | ${new Date()} */\n`;
+const cssHeader = `/* ${pkg.name} ${pkg.version} | ${new Date()} */\n`;
 
 
 // CSS: Build from SASS, add prefixes and sourcemaps.
@@ -72,14 +76,14 @@ gulp.task('minify', ['css'], () => {
       suffix: '.min'
     }))
     .pipe(cssnano())
-    .pipe(header(minifiedHeader))
+    .pipe(header(cssHeader))
     .pipe(gulp.dest(path.dest.css));
 });
 
 
 // Delete generated content.
 gulp.task('clean', () => {
-  return del.sync([path.dest.js, `${path.dest.css}/*.css`, path.dest.icons]);
+  return del.sync([path.dest.dest]);
 });
 
 
