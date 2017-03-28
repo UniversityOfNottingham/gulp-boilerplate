@@ -10,6 +10,7 @@ const sassLint = require('gulp-sass-lint');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
 const sourcemaps = require('gulp-sourcemaps');
+const del = require('del');
 
 
 // Set the paths to source and destination files in an object.
@@ -73,6 +74,18 @@ gulp.task('minify', ['css'], () => {
     .pipe(cssnano())
     .pipe(header(minifiedHeader))
     .pipe(gulp.dest(path.dest.css));
+});
+
+
+// Delete generated content.
+gulp.task('clean', () => {
+  return del.sync([path.dest.js, `${path.dest.css}/*.css`, path.dest.icons]);
+});
+
+
+// Watch for changes.
+gulp.task('watch', ['default'], () => {
+  gulp.watch(`${path.src.sass}/**/*.scss`, ['css']); //
 });
 
 
