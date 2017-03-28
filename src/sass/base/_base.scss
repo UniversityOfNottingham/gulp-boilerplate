@@ -1,0 +1,15 @@
+html {
+  height: 100%;
+}
+
+body {
+  // font-smoothing is regarded as standard by the linter: https://github.com/sasstools/sass-lint/issues/824
+  // sass-lint:disable-block no-vendor-prefixes
+  box-sizing: border-box;
+  min-height: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}

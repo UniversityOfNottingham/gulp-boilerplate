@@ -1,0 +1,17 @@
+// The lower down the list an element appears the higher the z-index value.
+// SASS isn't zero indexed which is fortunate for this scenario.
+$z: (
+  'some-element',
+  'some-other-element'
+);
+
+// A function to pluck values from the z-index list.
+// Use: z-index: z(some-element);
+// CSS output: z-index: 2;
+@function z($value) {
+  @if index($z, $value) {
+    @return index($z, $value);
+  }
+  // Use warn instead of error to a get better backtrace in the console.
+  @warn 'Requested value is not included in the z-index list.';
+}

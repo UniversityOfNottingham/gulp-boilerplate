@@ -1,0 +1,45 @@
+// This is the only place we should use a universal selector.
+// sass-lint:disable-block no-universal-selectors
+* {
+  box-sizing: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  &:focus {
+    outline: 0;
+  }
+  &::before,
+  &::after {
+    box-sizing: inherit;
+  }
+}
+
+img {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+blockquote {
+  quotes: none;
+  &::before,
+  &::after {
+    content: '';
+  }
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+li {
+  display: inline;
+}
