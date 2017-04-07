@@ -5,6 +5,15 @@
   "repository": "git@github.com:UniversityOfNottingham/gulp-boilerplate.git",
   "author": "Alan Shortis <alan.shortis@nottingham.ac.uk>",
   "license": "MIT",
+  "paths": {
+    "src": {
+      "sass": "./src/sass"
+    },
+    "dest": {
+      "dest": "./dist",
+      "css": "./dist/css"
+    }
+  },
   "devDependencies": {
     "del": "^2.2.2",
     "gulp": "^3.9.1",

@@ -16,19 +16,6 @@ const notifier = require('node-notifier');
 const del = require('del');
 
 
-// Set the paths to source and destination files in an object.
-// We could move this to its own json file if we wanted.
-const path = {
-  src: {
-    sass: './src/sass'
-  },
-  dest: {
-    dest: './dist',
-    css: './dist/css'
-  }
-};
-
-
 // Define a comment that we can use on our built CSS.
 const cssHeader = `/* ${pkg.name} ${pkg.version} | ${new Date()} */\n`;
 
@@ -36,7 +23,7 @@ const cssHeader = `/* ${pkg.name} ${pkg.version} | ${new Date()} */\n`;
 // CSS: Build from SASS, add prefixes and sourcemaps.
 // Calls the 'sasslint' task before running.
 gulp.task('css', ['sasslint'], () => {
-  return gulp.src(`${path.src.sass}/**/*.scss`)
+  return gulp.src(`${pkg.paths.src.sass}/**/*.scss`)
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}))
     .on('error', function(err) {
@@ -49,13 +36,13 @@ gulp.task('css', ['sasslint'], () => {
     .pipe(autoprefixer({browsers: ['last 2 versions']}))
     .pipe(sourcemaps.write())
     .pipe(header(cssHeader))
-    .pipe(gulp.dest(path.dest.css));
+    .pipe(gulp.dest(pkg.paths.dest.css));
 });
 
 
 // Lint our SASS files. See '.sass-lint.yml' for rules.
 gulp.task('sasslint', () => {
-  return gulp.src(`${path.src.sass}/**/*.scss`)
+  return gulp.src(`${pkg.paths.src.sass}/**/*.scss`)
     .pipe(sassLint())
     .pipe(sassLint.format())
     .pipe(sassLint.failOnError())
@@ -71,25 +58,25 @@ gulp.task('sasslint', () => {
 // Minify CSS.
 // Calls the 'css' task before running.
 gulp.task('minify', ['css'], () => {
-  return gulp.src(`${path.dest.css}/style.css`)
+  return gulp.src(`${pkg.paths.dest.css}/style.css`)
     .pipe(rename({
       suffix: '.min'
     }))
     .pipe(cssnano())
     .pipe(header(cssHeader))
-    .pipe(gulp.dest(path.dest.css));
+    .pipe(gulp.dest(pkg.paths.dest.css));
 });
 
 
 // Delete generated content.
 gulp.task('clean', () => {
-  return del.sync([path.dest.dest]);
+  return del.sync([pkg.paths.dest.dest]);
 });
 
 
 // Watch for changes.
 gulp.task('watch', ['default'], () => {
-  gulp.watch(`${path.src.sass}/**/*.scss`, ['css']); //
+  gulp.watch(`${pkg.paths.src.sass}/**/*.scss`, ['css']); //
 });
 
 
