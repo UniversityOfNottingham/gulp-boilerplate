@@ -75,6 +75,35 @@ $colors: (
 );
 ```
 
+#### State Classes
+
+When using CSS classes to set a state on an element, use a dedicated class instead of adding a modifier. If used across multiple components these state classes can stay in the `utilities` layer to promote reuse:
+
+```
+.is-hidden {
+  display: none;
+}
+
+.is-invisible {
+  visibility: hidden;
+}
+```
+
+Where a state class is specific to a component, nest the state class within the component class after any elements/modifiers:
+
+```
+.off-canvas-menu {
+  display: none;
+  &__item {
+    display: inline-block;
+  }
+  &.is-active {
+    display: block;
+  }
+}
+```
+
+
 ## Syntax
 
 ### Spacing, indentation, naming conventions and writing styles
