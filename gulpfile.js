@@ -10,11 +10,15 @@ const sass = require('gulp-sass');
 const sassLint = require('gulp-sass-lint');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
+const browserify = require('browserify');
+const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
 const header = require('gulp-header');
 const rename = require('gulp-rename');
 const notifier = require('node-notifier');
 const del = require('del');
+const buffer = require('vinyl-buffer');
+const source = require('vinyl-source-stream');
 
 
 // Define a comment that we can use on our built files.
@@ -72,7 +76,7 @@ gulp.task('minify', ['css'], () => {
 // JS: Build from partials and add sourcemaps.
 gulp.task('js', () => {
   return browserify({
-      entries: `${path.src.js}/app.js`,
+      entries: `${paths.src.js}/app.js`,
       extensions: ['.js', '.json'],
       debug: true
     })
@@ -80,7 +84,19 @@ gulp.task('js', () => {
     .pipe(source('app.js'))
     .pipe(buffer())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(path.dest.js));
+    .pipe(gulp.dest(paths.dest.js));
+});
+
+
+// JS: Uglify. Run the JS task first.
+gulp.task('uglify', ['js'], () => {
+  return gulp.src([`${paths.dest.js}/*.js`, `!${paths.dest.js}/*.min.js`])
+    .pipe(rename({
+      suffix: '.min'
+    }))
+    .pipe(uglify())
+    .pipe(header(fileHeader))
+    .pipe(gulp.dest(paths.dest.js));
 });
 
 
@@ -91,10 +107,12 @@ gulp.task('clean', () => {
 
 
 // Watch for changes.
+// Calls the 'default' task before running.
 gulp.task('watch', ['default'], () => {
-  gulp.watch(`${paths.src.sass}/**/*.scss`, ['css']); //
+  gulp.watch(`${paths.src.sass}/**/*.scss`, ['css']);
+  gulp.watch(`${paths.src.js}/**/*.{js,json}`, ['js']);
 });
 
 
 // Do it all (except watch).
-gulp.task('default', ['minify', 'uglify']);
+gulp.task('default', ['clean', 'minify', 'uglify']);
