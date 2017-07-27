@@ -1,6 +1,7 @@
 // Require package.json so we can use its content.
 // This is particularly handy for WordPress themes.
 const pkg = require('./package.json');
+const paths = pkg.paths;
 
 
 // Require each package we got from NPM.
@@ -16,14 +17,14 @@ const notifier = require('node-notifier');
 const del = require('del');
 
 
-// Define a comment that we can use on our built CSS.
-const cssHeader = `/* ${pkg.name} ${pkg.version} | ${new Date()} */\n`;
+// Define a comment that we can use on our built files.
+const fileHeader = `/* ${pkg.name} ${pkg.version} | ${new Date()} */\n`;
 
 
 // CSS: Build from SASS, add prefixes and sourcemaps.
 // Calls the 'sasslint' task before running.
 gulp.task('css', ['sasslint'], () => {
-  return gulp.src(`${pkg.paths.src.sass}/**/*.scss`)
+  return gulp.src(`${paths.src.sass}/**/*.scss`)
     .pipe(sourcemaps.init())
     .pipe(sass({outputStyle: 'expanded'}))
     .on('error', function(err) {
@@ -35,14 +36,14 @@ gulp.task('css', ['sasslint'], () => {
     })
     .pipe(autoprefixer({browsers: ['last 2 versions']}))
     .pipe(sourcemaps.write())
-    .pipe(header(cssHeader))
-    .pipe(gulp.dest(pkg.paths.dest.css));
+    .pipe(header(fileHeader))
+    .pipe(gulp.dest(paths.dest.css));
 });
 
 
 // Lint our SASS files. See '.sass-lint.yml' for rules.
 gulp.task('sasslint', () => {
-  return gulp.src(`${pkg.paths.src.sass}/**/*.scss`)
+  return gulp.src(`${paths.src.sass}/**/*.scss`)
     .pipe(sassLint())
     .pipe(sassLint.format())
     .pipe(sassLint.failOnError())
@@ -58,27 +59,42 @@ gulp.task('sasslint', () => {
 // Minify CSS.
 // Calls the 'css' task before running.
 gulp.task('minify', ['css'], () => {
-  return gulp.src(`${pkg.paths.dest.css}/style.css`)
+  return gulp.src(`${paths.dest.css}/style.css`)
     .pipe(rename({
       suffix: '.min'
     }))
     .pipe(cssnano())
-    .pipe(header(cssHeader))
-    .pipe(gulp.dest(pkg.paths.dest.css));
+    .pipe(header(fileHeader))
+    .pipe(gulp.dest(paths.dest.css));
+});
+
+
+// JS: Build from partials and add sourcemaps.
+gulp.task('js', () => {
+  return browserify({
+      entries: `${path.src.js}/app.js`,
+      extensions: ['.js', '.json'],
+      debug: true
+    })
+    .bundle()
+    .pipe(source('app.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest(path.dest.js));
 });
 
 
 // Delete generated content.
 gulp.task('clean', () => {
-  return del.sync([pkg.paths.dest.dest]);
+  return del.sync([paths.dest.dest]);
 });
 
 
 // Watch for changes.
 gulp.task('watch', ['default'], () => {
-  gulp.watch(`${pkg.paths.src.sass}/**/*.scss`, ['css']); //
+  gulp.watch(`${paths.src.sass}/**/*.scss`, ['css']); //
 });
 
 
 // Do it all (except watch).
-gulp.task('default', ['minify']);
+gulp.task('default', ['minify', 'uglify']);
