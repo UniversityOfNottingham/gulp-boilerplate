@@ -9,7 +9,7 @@
 
 // This is a private function, prefixed with an underscore.
 // This shouldn't be exported, only used within this module by other functions.
-function _consoleLogger(arr = ['e', 'f', 'g', 'h']) {
+function _arrayLogger(arr = ['e', 'f', 'g', 'h']) {
   arr.forEach(item => console.log(`The letter is ${item}.`));
 }
 
@@ -19,8 +19,8 @@ function greeting() {
   const someValue = 53;
 
   console.log(`The value is ${someValue}.`);
-  _consoleLogger(...letters);
-  _consoleLogger();
+  _arrayLogger(...letters);
+  _arrayLogger();
 }
 
 
