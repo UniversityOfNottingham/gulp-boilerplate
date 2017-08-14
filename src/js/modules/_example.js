@@ -1,22 +1,25 @@
 // Require other modules
-// var someModule = require('./_some-module'),
+// const someModule = require('./_some-module'),
 
 
 // Require from node_modules (npm) directly via the package name
-// var $ = require('jQuery');
+// const $ = require('jQuery');
 // $('.some-element').addClass('foo');
 
 
 // This is a private function, prefixed with an underscore.
 // This shouldn't be exported, only used within this module by other functions.
-function _consoleLogger(val) {
-  console.log(val);
+function _consoleLogger(arr) {
+  arr.forEach(item => console.log(`The letter is ${item}.`));
 }
 
 
 function greeting() {
-  console.log('This appears to be working...');
-  _consoleLogger('...and so does this.');
+  const letters = ['a', 'b', 'c', 'd'];
+  const someValue = 53;
+
+  console.log(`The value is ${someValue}.`);
+  _consoleLogger(letters);
 }
 
 
