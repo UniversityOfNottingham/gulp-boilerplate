@@ -11,6 +11,7 @@ const sassLint = require('gulp-sass-lint');
 const autoprefixer = require('gulp-autoprefixer');
 const cssnano = require('gulp-cssnano');
 const browserify = require('browserify');
+const babelify = require('babelify');
 const uglify = require('gulp-uglify');
 const sourcemaps = require('gulp-sourcemaps');
 const header = require('gulp-header');
@@ -80,6 +81,7 @@ gulp.task('js', () => {
       extensions: ['.js', '.json'],
       debug: true
     })
+    .transform(babelify)
     .bundle()
     .pipe(source('app.js'))
     .pipe(buffer())
