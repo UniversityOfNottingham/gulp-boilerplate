@@ -4,7 +4,9 @@
     "sourceType": "module"
   },
   "env": {
-    "browser": true
+    "browser": true,
+    "node": true,
+    "commonjs": true
   },
   "rules": {
     "semi": 2,
