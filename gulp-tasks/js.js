@@ -13,8 +13,8 @@ const sourcemaps = require('gulp-sourcemaps');
 const browserSync = require('browser-sync').create();
 
 
-gulp.task('js', () => {
 // Build javascript and json modules with Browserify.
+gulp.task('js', ['eslint'], () => {
   return browserify({
     entries: `${src.js}/script.js`,
     extensions: ['.js', '.json'],
