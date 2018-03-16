@@ -14,25 +14,17 @@ const browserSync = require('browser-sync').create();
 
 
 gulp.task('js', () => {
-  // Build javascript and json modules with Browserify.
+// Build javascript and json modules with Browserify.
   return browserify({
     entries: `${src.js}/script.js`,
     extensions: ['.js', '.json'],
     debug: true
   })
-
-    // Use Babel to transpile.
     .transform(babelify)
     .bundle()
     .pipe(source('script.js'))
     .pipe(buffer())
-
-    // Write sourcemaps.
     .pipe(sourcemaps.write())
-
-    // Write the file.
     .pipe(gulp.dest(dest.js))
-
-    // Inject changes to browsers.
     .pipe(browserSync.stream());
 });
