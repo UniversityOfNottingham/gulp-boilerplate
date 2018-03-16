@@ -10,6 +10,15 @@
     "node": ">= 8.0.0",
     "npm": ">= 5.0.0"
   },
+  "babel": {
+    "presets": [
+      ["env", {
+        "targets": {
+          "browsers": ["last 2 versions", "ie >= 11"]
+        }
+      }]
+    ]
+  },
   "paths": {
     "src": {
       "sass": "./src/sass",
