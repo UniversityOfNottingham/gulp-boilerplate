@@ -1,51 +1,72 @@
 {
   "name": "gulp-boilerplate",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "description": "A set of reusable Gulp tasks for Front End development",
   "repository": "git@github.com:UniversityOfNottingham/gulp-boilerplate.git",
   "author": "Alan Shortis <alan.shortis@nottingham.ac.uk>",
+  "contributors": [],
   "license": "MIT",
   "private": true,
   "engines": {
     "node": ">= 8.0.0",
     "npm": ">= 5.0.0"
   },
-  "babel": {
-    "presets": [
-      ["env", {
-        "targets": {
-          "browsers": ["last 2 versions", "ie >= 11"]
-        }
-      }]
-    ]
+  "scripts": {
+    "build": "gulp",
+    "test": "gulp test",
+    "watch": "gulp watch"
   },
   "paths": {
     "src": {
       "sass": "./src/sass",
-      "js": "./src/js"
+      "js": "./src/js",
+      "icons": "src/icons"
     },
     "dest": {
       "dest": "./dist",
       "css": "./dist/css",
-      "js": "./dist/js"
+      "js": "./dist/js",
+      "icons": "./dist/icons"
     }
   },
+  "babel": {
+    "presets": [
+      [
+        "env",
+        {
+          "targets": {
+            "browsers": ["last 2 versions", "ie >= 11"]
+          }
+        }
+      ]
+    ]
+  },
   "devDependencies": {
-    "babel-preset-env": "^1.6.0",
-    "babelify": "^7.3.0",
-    "browserify": "^14.4.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babelify": "^8.0.0",
+    "browser-sync": "^2.23.6",
+    "browserify": "^16.1.1",
     "del": "^3.0.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
+    "gulp-autoprefixer": "^5.0.0",
     "gulp-cssnano": "^2.1.2",
-    "gulp-header": "^1.8.9",
+    "gulp-eslint": "^4.0.2",
+    "gulp-prettier-plugin": "^1.2.0",
     "gulp-rename": "^1.2.2",
     "gulp-sass": "^3.1.0",
-    "gulp-sass-lint": "^1.3.2",
-    "gulp-sourcemaps": "^2.6.0",
+    "gulp-sass-lint": "^1.3.4",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-svgo": "^1.4.0",
+    "gulp-svgstore": "^6.1.1",
     "gulp-uglify": "^3.0.0",
-    "node-notifier": "^5.1.2",
-    "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "merge-stream": "^1.0.1",
+    "node-notifier": "^5.2.1",
+    "prettier": "^1.11.1",
+    "prettierrc": "0.0.0-5",
+    "require-dir": "^1.0.0",
+    "uglify": "^0.1.5",
+    "vinyl-buffer": "^1.0.1",
+    "vinyl-source-stream": "^2.0.0"
   }
 }
