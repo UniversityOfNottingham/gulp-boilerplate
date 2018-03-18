@@ -16,6 +16,9 @@
     "test": "gulp test",
     "watch": "gulp watch"
   },
+  "pre-commit": [
+    "test"
+  ],
   "paths": {
     "src": {
       "sass": "./src/sass",
@@ -35,7 +38,10 @@
         "env",
         {
           "targets": {
-            "browsers": ["last 2 versions", "ie >= 11"]
+            "browsers": [
+              "last 2 versions",
+              "ie >= 11"
+            ]
           }
         }
       ]
@@ -62,6 +68,7 @@
     "gulp-uglify": "^3.0.0",
     "merge-stream": "^1.0.1",
     "node-notifier": "^5.2.1",
+    "pre-commit": "^1.2.2",
     "prettier": "^1.11.1",
     "prettierrc": "0.0.0-5",
     "require-dir": "^1.0.0",
