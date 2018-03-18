@@ -1,20 +1,20 @@
 // Require package information.
-const pkg = require("../package.json");
+const pkg = require('../package.json');
 const { src, dest } = pkg.paths;
 
 // Require NPM packages.
-const gulp = require("gulp");
-const babelify = require("babelify");
-const browserify = require("browserify");
-const buffer = require("vinyl-buffer");
-const source = require("vinyl-source-stream");
-const sourcemaps = require("gulp-sourcemaps");
-const merge = require("merge-stream");
-const browserSync = require("browser-sync").create();
+const gulp = require('gulp');
+const babelify = require('babelify');
+const browserify = require('browserify');
+const buffer = require('vinyl-buffer');
+const source = require('vinyl-source-stream');
+const sourcemaps = require('gulp-sourcemaps');
+const merge = require('merge-stream');
+const browserSync = require('browser-sync').create();
 
 // Build javascript and json modules with Browserify.
-gulp.task("js", ["eslint"], () => {
-  const files = ["script", "polyfill"];
+gulp.task('js', ['eslint'], () => {
+  const files = ['script', 'polyfill'];
   return merge(
     files.map(file => {
       return browserify({

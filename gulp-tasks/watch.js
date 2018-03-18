@@ -1,13 +1,13 @@
 // Require package information.
-const pkg = require("../package.json");
+const pkg = require('../package.json');
 const { src, dest } = pkg.paths;
 
 // Require NPM packages.
-const gulp = require("gulp");
-const browserSync = require("browser-sync").create();
+const gulp = require('gulp');
+const browserSync = require('browser-sync').create();
 
 // Start browsersync and run tasks on changes.
-gulp.task("watch", ["css", "js"], () => {
+gulp.task('watch', ['css', 'js'], () => {
   browserSync.init({
     server: {
       // proxy: 'https://mods.docker',
@@ -19,6 +19,6 @@ gulp.task("watch", ["css", "js"], () => {
       notify: false
     }
   });
-  gulp.watch(`${src.sass}/**/*.scss`, ["css"]);
-  gulp.watch(`${src.js}/**/*.js`, ["js"]);
+  gulp.watch(`${src.sass}/**/*.scss`, ['css']);
+  gulp.watch(`${src.js}/**/*.js`, ['js']);
 });
