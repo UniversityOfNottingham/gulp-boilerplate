@@ -1,6 +1,9 @@
-// Require your modules.
-// You can also require from node_modules directly: require('leaflet').
-const example = require('./modules/_example');
+import polyFills from './modules/_check-polyfills';
+import logStuff from './modules/_example';
 
-// Invoke a function exported from your required module.
-example.greeting();
+// import amd invoke the things.
+function invoke() {
+  logStuff();
+}
+
+polyFills(invoke);

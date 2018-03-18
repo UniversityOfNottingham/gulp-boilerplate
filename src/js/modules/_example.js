@@ -1,30 +1,17 @@
-// Require other modules
-// const someModule = require('./_some-module'),
-
-
-// Require from node_modules (npm) directly via the package name
-// const $ = require('jQuery');
-// $('.some-element').addClass('foo');
-
-
-// This is a private function, prefixed with an underscore.
-// This shouldn't be exported, only used within this module by other functions.
-function _arrayLogger(arr = ['e', 'f', 'g', 'h']) {
-  arr.forEach(item => console.log(`The letter is ${item}.`));
+// Functions that are not to be exported are prefixed with an underscore.
+function _arrayLogger(arr = ['x', 'y', 'z']) {
+  arr.forEach(item => console.log(`${item} is a letter.`));
 }
 
-
-function greeting() {
-  const letters = [['a', 'b', 'c', 'd']];
+// An exported function that does some ES6 stuff.
+function logStuff() {
+  const letters = [['a', 'b', 'c']];
   const someValue = 53;
 
-  console.log(`The value is ${someValue}.`);
+  console.log(`${someValue} is a number.`);
   _arrayLogger(...letters);
   _arrayLogger();
 }
 
-
-// Export the functions you want to make avaiable to any JS file that requires this one.
-module.exports = {
-  greeting: greeting
-}
+// Export the function. Anything that imports this file can use it.
+export default logStuff;
