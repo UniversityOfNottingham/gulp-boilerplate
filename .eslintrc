@@ -33,7 +33,7 @@
     "no-duplicate-imports": 2,
     "dot-notation": 2,
     "eqeqeq": [2, "always"],
-    "brace-style": [2, "stroustrup"],
+    "brace-style": [2, "1tbs"],
     "spaced-comment": [2, "always"],
     "space-before-blocks": 2,
     "space-infix-ops": 2,
