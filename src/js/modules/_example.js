@@ -3,7 +3,7 @@ function _arrayLogger(arr = ['x', 'y', 'z']) {
   arr.forEach(item => console.log(`${item} is a letter.`));
 }
 
-// An exported function that does some ES6 stuff.
+// An exported function.
 function logStuff() {
   const letters = [['a', 'b', 'c']];
   const someValue = 53;
